@@ -1,0 +1,27 @@
+plugins {
+    id 'java'
+    id 'application'  // Для запуска main-класса
+}
+
+//group = 'com.example'
+version = '1.0.0'
+sourceCompatibility = '17'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // PostgreSQL JDBC драйвер
+    implementation 'org.postgresql:postgresql:42.6.0'
+
+    // Kafka Client
+    implementation 'org.apache.kafka:kafka-clients:3.6.0'
+
+    // Логирование (необязательно)
+    implementation 'org.slf4j:slf4j-simple:2.0.9'
+}
+
+application {
+    mainClass = 'com.example.Main'  // Укажи свой main-класс
+}
