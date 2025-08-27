@@ -1,26 +1,39 @@
 plugins {
     id 'java'
-    id 'application'  // Для запуска main-класса
+    id 'application'
 }
-group = 'com.example'
+
+group = 'com.zeus.vet'
 version = '1.0.0'
-sourceCompatibility = '17'
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    // PostgreSQL JDBC драйвер
-    implementation 'org.postgresql:postgresql:42.6.0'
+    // Для работы с SQLite базой данных
+    implementation 'org.xerial:sqlite-jdbc:3.45.1.0'
 
-    // Kafka Client
-    implementation 'org.apache.kafka:kafka-clients:3.6.0'
+    // Для простого HTTP сервера (вместо Spring)
+    implementation 'com.sun.net.httpserver:http:20070405'
 
-    // Логирование (необязательно)
+    // Для работы с JSON
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.16.1'
+
+    // Для логирования
     implementation 'org.slf4j:slf4j-simple:2.0.9'
 }
 
 application {
-    mainClass = 'com.example.Main'  // Укажи свой main-класс
+    mainClass = 'com.zeus.vet.Main'
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'com.zeus.vet.Main'
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
